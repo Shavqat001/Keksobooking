@@ -1,24 +1,21 @@
-// Случайное число
-const getRandomInt = function (min, max) {
-  if (min < 0 || max < 0) {
+const randomNumber = (min, max) => {
+  if (min > max) {
     return -1;
   }
 
-  if (max < min) {
-    [min, max] = [max, min]
+  if (min < 0 || max < 0) {
+    [min, max] = [max, min];
   }
 
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Проверка строки
 const stringCount = (text, sign) => {
   return text.length <= sign ? true : false;
 }
 
-// Случайный элемент массива
-const getRandomElementArr = (array) => {
-  return array[getRandomInt(0, array.length - 1)];
+const getRandomElementArr = (arr) => {
+  return arr[randomNumber(0, arr.length - 1)];
 }
 
-export { getRandomInt, stringCount, getRandomElementArr };
+export { randomNumber, stringCount, getRandomElementArr };

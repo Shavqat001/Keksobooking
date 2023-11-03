@@ -1,3 +1,4 @@
-import { renderPhotos } from './addpreview.js';
-
-renderPhotos();
+import './util.js';
+import './data.js';
+import './similarElements.js';
+import './form.js';

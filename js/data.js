@@ -1,61 +1,29 @@
-import { getRandomInt, getRandomElementArr } from './util.js';
-
-let photos = [];
-const numberOfPhotos = 25;
-const likes = {
-  MIN: 15,
-  MAX: 200,
+const author = {
+  'avatar': `img/avatars/user0${1}.png`,
 }
 
-const names = [
-  'Дима',
-  'Тимофей',
-  'Алексей',
-  'Мария',
-  'Кристина',
-  'Вика',
-  'Игорь',
-  'Виктор',
-  'Катя',
-  'Денис',
-];
-
-const descriptionPhoto = [
-  'Без фильтров',
-  'Новая камера',
-  'Зацените фотку!',
-  'Хороший ракурс',
-  'Просто так',
-  'Из архива',
-];
-
-const comments = [
-  'Всё отлично!',
-  'В целом всё неплохо. Но не всё.',
-  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра.',
-  'В конце концов это просто непрофессионально.',
-  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают.',
-  'Как можно было поймать такой неудачный момент?!',
-]
-
-const addPhotos = () => {
-  for (let i = 0; i < numberOfPhotos; i++) {
-    photos.push({
-      id: i,
-      url: 'photos/' + (i + 1) + '.jpg',
-      description: getRandomElementArr(descriptionPhoto),
-      likes: getRandomInt(likes.MIN, likes.MAX),
-      comments: [{
-        id: getRandomInt(0, 999),
-        avatar: 'img/avatar-' + getRandomInt(1, 6) + '.svg',
-        message: getRandomElementArr(comments),
-        name: getRandomElementArr(names),
-      }],
-    })
-  }
+const location = {
+  'x': 35.65000, // до 5.70000
+  'y': 139.70000, // до 139.80000
 }
-addPhotos();
 
-export default photos;
+const offer = {
+  'title': 'Пустое название',
+  'address': `${location.x}}, ${location.y}`,
+  'price': 20000,
+  'type': 'palace', // palace, flat, house или bungalow.
+  'rooms': 6,
+  'guests': 60,
+  'checkin': '12:00', // 12:00, 13:00 или 14:00.
+  'checkout': '14:00', // 12:00, 13:00 или 14:00.
+  'features': ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
+  'description': 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum itaque, doloribus amet nihil minus quae accusamus animi optio at distinctio.',
+  'photos': [
+    'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
+    'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
+    'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
+    'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
+  ],
+}
+
+export { author, offer, location };
