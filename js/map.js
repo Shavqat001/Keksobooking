@@ -16,6 +16,12 @@ L.tileLayer(
   },
 ).addTo(map);
 
+const createPopup = () => {
+  const template = document.querySelector('#card').content.querySelector('.popup');
+  const popup = template.cloneNode(true);
+  return popup;
+}
+
 const mainPinIcon = L.icon({
   iconUrl: './leaflet/img/main-pin.svg',
   iconSize: [52, 52],
@@ -23,20 +29,25 @@ const mainPinIcon = L.icon({
 });
 let points = [
   {
+    title: '',
     lat: 35.59273436758596,
     lng: 139.7307799528282,
   },
   {
+    title: '',
     lat: 35.73304896983635,
     lng: 139.72016462578227,
   },
   {
+    title: '',
     lat: 35.686304836222796,
     lng: 139.76834187929836,
   },
 ];
 
-points.forEach(({ lat, lng }) => {
+points.forEach((point) => {
+  const { lat, lng } = point;
+
   const icon = L.icon({
     iconUrl: './leaflet/img/pin.svg',
     iconSize: [40, 40],
@@ -53,8 +64,12 @@ points.forEach(({ lat, lng }) => {
     },
   );
 
-  marker.addTo(map)
-})
+  marker
+    .addTo(map)
+    .bindPopup(
+      createPopup(point),
+    )
+});
 
 if (mapFilters.classList.contains('ad-form--disabled')) {
   mapFilters.classList.remove('ad-form--disabled');
