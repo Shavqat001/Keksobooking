@@ -1,3 +1,4 @@
+
 const author = {
   'avatar': `img/avatars/user0${1}.png`,
 }

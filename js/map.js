@@ -1,9 +1,6 @@
 import { mapFilters } from './page-states.js';
 
 const map = L.map('map-canvas')
-  .on('load', () => {
-    console.log('Карта инициализирована')
-  })
   .setView({
     lat: 35.6806173007449,
     lng: 139.65030686583114,
@@ -18,11 +15,10 @@ L.tileLayer(
 
 const createPopup = () => {
   const template = document.querySelector('#card').content.querySelector('.popup');
-  const popup = template.cloneNode(true);
-  return popup;
+  return template.cloneNode(true);
 }
 
-const mainPinIcon = L.icon({
+L.icon({
   iconUrl: './leaflet/img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [0, 0],
