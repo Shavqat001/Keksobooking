@@ -1,10 +1,10 @@
-import { mapFilters } from './page-states.js';
+import { fetchData } from './create-fetch.js';
 
 const map = L.map('map-canvas')
   .setView({
-    lat: 35.6806173007449,
-    lng: 139.65030686583114,
-  }, 10);
+    lat: 35.6706173007449,
+    lng: 139.75430506380100,
+  }, 13);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -18,58 +18,38 @@ const createPopup = () => {
   return template.cloneNode(true);
 }
 
-L.icon({
-  iconUrl: './leaflet/img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [0, 0],
-});
-let points = [
-  {
-    title: '',
-    lat: 35.59273436758596,
-    lng: 139.7307799528282,
-  },
-  {
-    title: '',
-    lat: 35.73304896983635,
-    lng: 139.72016462578227,
-  },
-  {
-    title: '',
-    lat: 35.686304836222796,
-    lng: 139.76834187929836,
-  },
-];
+fetchData().then(data => {
+  data.forEach(el => {
+    const { location, author, offer } = el;
+    const { lat, lng } = location;
+    const { avatar } = author;
+    const { title } = offer;
 
-points.forEach((point) => {
-  const { lat, lng } = point;
 
-  const icon = L.icon({
-    iconUrl: './leaflet/img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    const icon = L.icon({
+      iconUrl: avatar,
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+    });
+
+    const marker = L.marker(
+      {
+        lat,
+        lng,
+      },
+      {
+        icon,
+      },
+    );
+    marker
+      .addTo(map)
+      .bindTooltip(title, {
+        permanent: true, // чтобы подсказка отображалась всегда
+        direction: title, // направление подсказки
+      })
+      .bindPopup(
+        createPopup()
+          .querySelector('.popup__avatar').title = title,
+      );
   });
-
-  const marker = L.marker(
-    {
-      lat,
-      lng,
-    },
-    {
-      icon,
-    },
-  );
-
-  marker
-    .addTo(map)
-    .bindPopup(
-      createPopup(point),
-    )
 });
-
-if (mapFilters.classList.contains('ad-form--disabled')) {
-  mapFilters.classList.remove('ad-form--disabled');
-  for (let el of mapFilters.children) {
-    el.removeAttribute('disabled');
-  }
-}

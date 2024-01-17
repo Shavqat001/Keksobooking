@@ -11,7 +11,7 @@ const randomNumber = (min, max) => {
 }
 
 const stringCount = (text, sign) => {
-  return text.length <= sign ? true : false;
+  return text.length <= sign;
 }
 
 const getRandomElementArr = (arr) => {

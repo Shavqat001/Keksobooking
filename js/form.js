@@ -1,8 +1,9 @@
-let type = document.querySelector('#type'),
+let mainForm = document.querySelector('.ad-form'),
+  rooms = document.querySelector('#room_number'),
+  type = document.querySelector('#type'),
   priceField = document.querySelector('#price'),
   timeIn = document.querySelector('#timein'),
   timeOut = document.querySelector('#timeout');
-
 type.addEventListener('change', () => {
   let selected = type.options[type.selectedIndex];
 
@@ -28,3 +29,7 @@ timeOut.addEventListener('change', () => {
   const selected = timeOut.value;
   timeIn.value = selected;
 });
+
+mainForm.addEventListener('click', (evt) => {
+  evt.preventDefault();
+})
