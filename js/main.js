@@ -5,3 +5,4 @@ import './similarElements.js';
 import './util.js';
 import './map.js';
 import './create-fetch.js';
+import './avatar.js';

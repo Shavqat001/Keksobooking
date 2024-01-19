@@ -1,5 +1,7 @@
 let mainForm = document.querySelector('.ad-form'),
   rooms = document.querySelector('#room_number'),
+  capacity = document.querySelector('#capacity'),
+  capacityOptions = capacity.children,
   type = document.querySelector('#type'),
   priceField = document.querySelector('#price'),
   timeIn = document.querySelector('#timein'),
@@ -19,7 +21,24 @@ type.addEventListener('change', () => {
     priceField.placeholder = 10000;
   }
 });
-
+rooms.addEventListener('change', () => {
+  let selected = rooms.options[rooms.selectedIndex].value;
+  console.log(selected)
+  // for (const option of capacityOptions) {
+  //   if (option) {
+  //
+  //   }
+  // }
+  if (selected == 1) {
+    capacityOptions[0].selected = true;
+  } else if (selected == 2) {
+    capacityOptions[1].selected = true;
+  } else if (selected == 3) {
+    capacityOptions[2].selected = true;
+  } else if (selected == 100) {
+    capacityOptions[3].selected = true;
+  }
+});
 timeIn.addEventListener('change', () => {
   const selected = timeIn.value;
   timeOut.value = selected;
@@ -31,5 +50,5 @@ timeOut.addEventListener('change', () => {
 });
 
 mainForm.addEventListener('click', (evt) => {
-  evt.preventDefault();
+  // evt.preventDefault();
 })
