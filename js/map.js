@@ -39,8 +39,8 @@ fetchData().then(data => {
   data.slice(0, 10).forEach(el => {
     const {offer, location} = el;
     const {type} = offer;
-    const [lat, lng] = Object.values(location);
 
+    const [lat, lng] = Object.values(location);
     const pinIcon = L.icon(
       {
         iconUrl: '../leaflet/img/pin.svg',
@@ -55,11 +55,30 @@ fetchData().then(data => {
         lng,
       },
       {
-        type: type,
         icon: pinIcon,
+        type: type, // Добавлено свойство "type"
       },
     );
-
     pinMarker.addTo(map).bindPopup(createPopup());
+
+    const types = pinMarker.options.type;
+
+    let mapFilters = document.querySelector('.map__filters');
+    let houseType = document.querySelector('#housing-type');
+    const markers = [];
+    markers.push(pinMarker);
+
+    mapFilters.addEventListener('change', () => {
+      let selected = houseType.options[houseType.selectedIndex].value;
+      console.log(selected, types)
+      markers.forEach(marker => {
+        if (selected == types) {
+          pinMarker.addTo(map);
+        } else {
+          marker.remove();
+        }
+      });
+    })
   });
 });
+
