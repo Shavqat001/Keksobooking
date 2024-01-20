@@ -1,14 +1,12 @@
-// Import necessary modules or functions if required
-import { fetchData } from './create-fetch.js';
+import {fetchData} from './create-fetch.js';
 
-// Create the map
 const map = L.map('map-canvas')
-  .setView({
-    lat: 35.6706173007449,
-    lng: 139.75430506380100,
-  }, 13);
+  .setView(
+    {
+      lat: 35.6706173007449,
+      lng: 139.75430506380100,
+    }, 13);
 
-// Add the main tile layer
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
@@ -16,14 +14,12 @@ L.tileLayer(
   },
 ).addTo(map);
 
-// Main icon
 const mainIcon = L.icon({
   iconUrl: '../leaflet/img/main-pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
 
-// Main marker
 L.marker(
   {
     lat: 35.6706173007449,
@@ -34,32 +30,32 @@ L.marker(
   },
 ).addTo(map);
 
-// Function to create a popup template
 const createPopup = () => {
   const template = document.querySelector('#card').content.querySelector('.popup');
   return template.cloneNode(true);
-}
+};
 
-// Fetch data and add markers with pin icons
 fetchData().then(data => {
-  data.forEach(el => {
-    const { location } = el;
-    const { lat, lng } = location;
+  data.slice(0, 10).forEach(el => {
+    const {offer, location} = el;
+    const {type} = offer;
+    const [lat, lng] = Object.values(location);
 
-    // Pin icon
-    const pinIcon = L.icon({
-      iconUrl: '../leaflet/img/pin.svg', // Replace with your server endpoint
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
-    });
+    const pinIcon = L.icon(
+      {
+        iconUrl: '../leaflet/img/pin.svg',
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+      },
+    );
 
-    // Pin marker
     const pinMarker = L.marker(
       {
         lat,
         lng,
       },
       {
+        type: type,
         icon: pinIcon,
       },
     );

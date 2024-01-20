@@ -23,12 +23,6 @@ type.addEventListener('change', () => {
 });
 rooms.addEventListener('change', () => {
   let selected = rooms.options[rooms.selectedIndex].value;
-  console.log(selected)
-  // for (const option of capacityOptions) {
-  //   if (option) {
-  //
-  //   }
-  // }
   if (selected == 1) {
     capacityOptions[0].selected = true;
   } else if (selected == 2) {
