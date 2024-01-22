@@ -3,7 +3,6 @@ import {checkGuests, checkHouseType, checkPriceRange, checkRooms} from './map-fi
 import {map, markers} from './map.js';
 import {createCard} from './create-card.js';
 
-
 fetchData().then(data => {
   data.slice(0, 10).forEach(el => {
     const {author, offer, location} = el;
@@ -20,6 +19,7 @@ fetchData().then(data => {
       features,
       description,
       photos } = offer;
+
     const [lat, lng] = Object.values(location);
     const pinIcon = L.icon(
       {

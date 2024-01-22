@@ -1,6 +1,12 @@
 function createCard(avatarIcon, titleText, addressText, priceText, typeText, roomsText, guestsText, checkinText, checkoutText, featuresText, descriptionText, photoSrc) {
-  let card = document.querySelector('#card').content.cloneNode(true);
-
+  let classesToAdd = [
+    'popup__feature--wifi',
+    'popup__feature--dishwasher',
+    'popup__feature--parking',
+    'popup__feature--washer',
+    'popup__feature--elevator',
+    'popup__feature--conditioner',
+  ];
   let popup = document.createElement('article');
   let avatar = document.createElement('img');
   let title = document.createElement('h3');
@@ -10,19 +16,20 @@ function createCard(avatarIcon, titleText, addressText, priceText, typeText, roo
   let capacity = document.createElement('p');
   let time = document.createElement('p');
   let featureLists = document.createElement('ul');
-  for (let i = 0; i < 6; i++) {
-    let featureItems = document.createElement('li');
-    featureItems.classList.add('popup__feature');
-    featureItems.textContent = featuresText;
-    featureLists.append(featureItems);
-  }
+  if (Array.isArray(featuresText)) {
+    featuresText.forEach((el,i) => {
+      let featureItems = document.createElement('li');
+      featureItems.classList.add('popup__feature');
 
+      featureItems.classList.add(classesToAdd[i]);
+      featureItems.textContent = el;
+      featureLists.append(featureItems);
+    })
+  }
   let description = document.createElement('p');
   let photos = document.createElement('div');
 
-
   popup.classList.add('popup');
-
   avatar.classList.add('popup__avatar');
   title.classList.add('popup__title');
   address.classList.add('popup__text');
@@ -38,23 +45,25 @@ function createCard(avatarIcon, titleText, addressText, priceText, typeText, roo
   description.classList.add('popup__description');
   photos.classList.add('popup__photos');
 
-
   avatar.src = avatarIcon;
   title.textContent = titleText;
   address.textContent = addressText;
-  price.InnerHtml = `${priceText} <span>₽/ночь</span>`;
+  price.innerHtml = `${priceText} <span>₽/ночь</span>`;
   type.textContent = typeText;
-  capacity.textContent = roomsText;
+  capacity.textContent = `${roomsText} комнаты для ${guestsText} гостей`;
   time.textContent = `Заезд после ${checkinText}, выезд до ${checkoutText}`;
   description.textContent = descriptionText;
 
-  for (let i = 0; i < photoSrc.length; i++) {
-    let popupPhoto = document.createElement('img');
-    popupPhoto.classList.add('popup__photo');
-    popupPhoto.src = photoSrc[i];
-    photos.append(popupPhoto);
+  if (Array.isArray(photoSrc)) {
+    for (let i = 0; i < photoSrc.length; i++) {
+      let popupPhoto = document.createElement('img');
+      popupPhoto.classList.add('popup__photo');
+      popupPhoto.src = photoSrc[i];
+      popupPhoto.width = 45;
+      popupPhoto.height = 45;
+      photos.append(popupPhoto);
+    }
   }
-
   popup.append(
     avatar,
     title,
@@ -66,7 +75,8 @@ function createCard(avatarIcon, titleText, addressText, priceText, typeText, roo
     featureLists,
     description,
     photos);
-  return card;
+
+  return popup;
 }
 
-export {createCard};
+export {createCard}
