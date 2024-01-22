@@ -1,4 +1,5 @@
 import './avatar.js';
+import './create-card.js';
 import './create-fetch.js';
 import './fetch-filter.js';
 import './form.js';

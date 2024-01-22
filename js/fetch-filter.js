@@ -1,13 +1,25 @@
 import {fetchData} from './create-fetch.js';
-
 import {checkGuests, checkHouseType, checkPriceRange, checkRooms} from './map-filters.js';
 import {map, markers} from './map.js';
+import {createCard} from './create-card.js';
 
 
 fetchData().then(data => {
   data.slice(0, 10).forEach(el => {
-    const {offer, location} = el;
-    const {type, price, rooms, guests} = offer;
+    const {author, offer, location} = el;
+    const {avatar} = author;
+    const {
+      title,
+      address,
+      price,
+      type,
+      rooms,
+      guests,
+      checkin,
+      checkout,
+      features,
+      description,
+      photos } = offer;
     const [lat, lng] = Object.values(location);
     const pinIcon = L.icon(
       {
@@ -30,6 +42,11 @@ fetchData().then(data => {
         guests: guests,
       },
     );
+
+    pinMarker.bindPopup(createCard(
+      avatar, title, address, price, type,
+      rooms, guests, checkin, checkout,
+      features, description, photos))
     pinMarker.addTo(map);
     markers.push(pinMarker);
   });
