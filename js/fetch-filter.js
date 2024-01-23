@@ -18,7 +18,8 @@ fetchData().then(data => {
       checkout,
       features,
       description,
-      photos } = offer;
+      photos
+    } = offer;
 
     const [lat, lng] = Object.values(location);
     const pinIcon = L.icon(
@@ -43,12 +44,12 @@ fetchData().then(data => {
       },
     );
 
+    markers.push(pinMarker);
     pinMarker.bindPopup(createCard(
       avatar, title, address, price, type,
       rooms, guests, checkin, checkout,
       features, description, photos))
     pinMarker.addTo(map);
-    markers.push(pinMarker);
   });
 
   let mapFilters = document.querySelector('.map__filters');
@@ -62,8 +63,10 @@ fetchData().then(data => {
     let selectedPrice = priceFilter.options[priceFilter.selectedIndex].value;
     let selectedRooms = houseRooms.options[houseRooms.selectedIndex].value;
     let selectedGuests = houseGuests.options[houseGuests.selectedIndex].value;
-
     markers.forEach(marker => {
+      if (!marker.closePopup()) {
+        marker.closePopup();
+      }
       const markerType = marker.options.type;
       const markerPrice = marker.options.price;
       const markerRooms = marker.options.rooms;
