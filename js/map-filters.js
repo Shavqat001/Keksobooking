@@ -22,5 +22,9 @@ function checkRooms(selectedRoom, markerRoom) {
 function checkGuests(selectedGuest, markerGuest) {
   return selectedGuest === 'any' || parseInt(selectedGuest) === markerGuest;
 }
+//
+// function checkFeatures() {
+//
+// }
 
 export {checkPriceRange, checkHouseType, checkRooms, checkGuests};
