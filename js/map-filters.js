@@ -22,9 +22,22 @@ function checkRooms(selectedRoom, markerRoom) {
 function checkGuests(selectedGuest, markerGuest) {
   return selectedGuest === 'any' || parseInt(selectedGuest) === markerGuest;
 }
-//
-// function checkFeatures() {
-//
-// }
 
-export {checkPriceRange, checkHouseType, checkRooms, checkGuests};
+function getFeatures(markersToRemove, markerFeatures, checkFeatures, marker) {
+  if (Array.isArray(markerFeatures)) {
+    let hasAllFeatures = true;
+    for (let i = 0; i < checkFeatures.length; i++) {
+      const featureCheckbox = checkFeatures[i];
+      if (featureCheckbox.checked && !markerFeatures.includes(featureCheckbox.value)) {
+        hasAllFeatures = false;
+        break;
+      }
+    }
+
+    if (!hasAllFeatures) {
+      markersToRemove.push(marker);
+    }
+  }
+}
+
+export {checkPriceRange, checkHouseType, checkRooms, checkGuests, getFeatures};

@@ -1,5 +1,5 @@
 import {fetchData} from './create-fetch.js';
-import {checkGuests, checkHouseType, checkPriceRange, checkRooms} from './map-filters.js';
+import {checkGuests, checkHouseType, checkPriceRange, checkRooms,getFeatures} from './map-filters.js';
 import {map, markers} from './map.js';
 import {createCard} from './create-card.js';
 
@@ -80,19 +80,12 @@ fetchData().then(data => {
       const markerGuests = marker.options.guests;
       const markerFeatures = marker.options.features;
 
-      if (Array.isArray(markerFeatures)) {
-        let hasAllFeatures = true;
-        for (let i = 0; i < checkFeatures.length; i++) {
-          if (checkFeatures[i].checked && !markerFeatures.includes(checkFeatures[i].value)) {
-            hasAllFeatures = false;
-            break;
-          }
-        }
-
-        if (!hasAllFeatures) {
-          markersToRemove.push(marker);
-        }
+      if (!markerFeatures || markerFeatures.length === 0) {
+        markersToRemove.push(marker);
+        return;
       }
+
+      getFeatures(markersToRemove, markerFeatures, checkFeatures, marker);
 
       if (
         checkHouseType(selectedType, markerType) &&
