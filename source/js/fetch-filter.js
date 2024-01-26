@@ -4,7 +4,6 @@ import {map, markers} from './map.js';
 import {createCard} from './create-card.js';
 
 fetchData().then(data => {
-  console.log(data)
   data.slice(0, 10).forEach(el => {
     const {author, offer, location} = el;
     const {avatar} = author;
